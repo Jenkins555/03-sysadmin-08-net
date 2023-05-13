@@ -35,7 +35,49 @@ telnet route-views.routeviews.org
 Username: rviews
 show ip route x.x.x.x/32
 show bgp x.x.x.x/32
-```
+```    
+
+  ```
+  route-views>show ip route 50.7.93.83
+Routing entry for 50.7.92.0/22
+  Known via "bgp 6447", distance 20, metric 0
+  Tag 2497, type external
+  Last update from 202.232.0.2 2w0d ago
+  Routing Descriptor Blocks:
+  * 202.232.0.2, from 202.232.0.2, 2w0d ago
+      Route metric is 0, traffic share count is 1
+      AS Hops 2
+      Route tag 2497
+      MPLS label: none
+
+  ```
+  
+  ```   
+   route-views>show bgp 50.7.93.83
+BGP routing table entry for 50.7.92.0/22, version 567572
+Paths: (20 available, best #19, table default)
+  Not advertised to any peer
+  Refresh Epoch 1
+  3561 209 3356 174
+    206.24.210.80 from 206.24.210.80 (206.24.210.80)
+      Origin IGP, localpref 100, valid, external
+      path 7F2B768DEF78 RPKI State not found
+      rx pathid: 0, tx pathid: 0
+  Refresh Epoch 1
+  3267 1299 174
+    194.85.40.15 from 194.85.40.15 (185.141.126.1)
+      Origin IGP, metric 0, localpref 100, valid, external
+      path 7F2C541AEC60 RPKI State not found
+      rx pathid: 0, tx pathid: 0
+  Refresh Epoch 1
+  19214 174
+    208.74.64.40 from 208.74.64.40 (208.74.64.40)
+      Origin IGP, localpref 100, valid, external
+      Community: 174:21101 174:22010
+      path 7F2BEDCB29A8 RPKI State not found
+      rx pathid: 0, tx pathid: 0
+
+  ```
 
 2. Создайте dummy-интерфейс в Ubuntu. Добавьте несколько статических маршрутов. Проверьте таблицу маршрутизации.
 
