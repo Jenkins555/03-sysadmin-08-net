@@ -79,7 +79,26 @@ Paths: (20 available, best #19, table default)
 
   ```
 
-2. Создайте dummy-интерфейс в Ubuntu. Добавьте несколько статических маршрутов. Проверьте таблицу маршрутизации.
+2. Создайте dummy-интерфейс в Ubuntu. Добавьте несколько статических маршрутов. Проверьте таблицу маршрутизации.   
+
+  ```
+  vagrant@vagrant:~$ sudo modprobe dummy   
+  vagrant@vagrant:~$ sudo ip link add name dummy0 type dummy   
+  vagrant@vagrant:~$ sudo ip addr add 10.0.10.1/24 dev dummy0
+  vagrant@vagrant:~$ sudo ip link set up dummy0   
+  vagrant@vagrant:~$ sudo ip route add to 10.10.0.0/16 via 10.0.10.1
+  vagrant@vagrant:~$ sudo ip route add to 10.12.0.0/16 via 10.0.10.1
+  
+  Создаётся виртуальный интерфейс dummy0, к которому привязывается IP-адрес 10.0.10.1/24. Затем, включается интерфейс dummy0, чтобы он мог принимать и отправлять сетевой трафик. Далее, с помощью команд sudo   ip route add добавляются два статических маршрута на подсети 10.10.0.0/16 и 10.12.0.0/16 через шлюз 10.0.10.1, то есть через созданный виртуальный интерфейс dummy0.
+  
+  vagrant@vagrant:~$ vagrant@vagrant:~$ ip route
+  10.0.10.0/24 dev dummy0 proto kernel scope link src 10.0.10.1
+  10.10.0.0/16 via 10.0.10.1 dev dummy0
+  10.12.0.0/16 via 10.0.10.1 dev dummy0
+
+ 
+
+  ```
 
 3. Проверьте открытые TCP-порты в Ubuntu. Какие протоколы и приложения используют эти порты? Приведите несколько примеров.
 
