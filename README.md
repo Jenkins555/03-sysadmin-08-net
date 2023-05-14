@@ -100,9 +100,33 @@ Paths: (20 available, best #19, table default)
 
   ```
 
-3. Проверьте открытые TCP-порты в Ubuntu. Какие протоколы и приложения используют эти порты? Приведите несколько примеров.
+3. Проверьте открытые TCP-порты в Ubuntu. Какие протоколы и приложения используют эти порты? Приведите несколько примеров.   
 
-4. Проверьте используемые UDP-сокеты в Ubuntu. Какие протоколы и приложения используют эти порты?
+  ```   
+   vagrant@vagrant:~$ sudo netstat -tlnp
+   Active Internet connections (only servers)
+   Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+   tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      656/systemd-resolve
+   tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      1586/sshd: /usr/sbi
+   tcp6       0      0 :::22                   :::*                    LISTEN      1586/sshd: /usr/sbi
+
+  Порт 53 используется для DNS-сервера systemd-resolve, который обеспечивает разрешение имен хостов на IP-адреса и наоборот.
+  Порт 22 используется для SSH-сервера, который слушает входящие SSH-подключения и позволяет удаленным пользователям получать доступ к системе.Использует протокол tcp.
+
+  ```
+
+4. Проверьте используемые UDP-сокеты в Ubuntu. Какие протоколы и приложения используют эти порты?   
+
+  ```
+  vagrant@vagrant:~$ sudo netstat -ulnp
+   Active Internet connections (only servers)
+   Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+   udp        0      0 127.0.0.53:53           0.0.0.0:*                           656/systemd-resolve
+   udp        0      0 10.0.2.15:68            0.0.0.0:*                           654/systemd-network   
+   
+   53: протокол DNS, используется приложением systemd-resolve.
+   68: протокол DHCP, используется приложением systemd-network.
+  ```
 
 5. Используя diagrams.net, создайте L3-диаграмму вашей домашней сети или любой другой сети, с которой вы работали. 
 
